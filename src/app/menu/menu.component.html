@@ -1,0 +1,7 @@
+<div style="display:flex;justify-content: center; width: 100%;">
+<button mat-button color="primary" class="main-mat-button mat-focus-indicator mat-flat-button mat-button-base mat-primary _mat-animation-noopable" [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [routerLink]="['/new-task']">Crear una nueva tarea</button>
+  <button mat-menu-item [routerLink]="['/task-list']">Visualizar las tareas creadas</button>
+</mat-menu>
+</div>

@@ -1,0 +1,13 @@
+<mat-selection-list class="listTable" #list>
+    <mat-list-option *ngFor="let task of taskList" [selected]="task.isDone" 
+        (click)="onAreaListControlChanged(task, list)" [value]="task.name">
+        {{task.name}}
+    </mat-list-option>
+</mat-selection-list>
+
+<mat-paginator [length]="allTaskList.length"
+              [pageSize]="5"
+              [pageSizeOptions]="[5]"
+              aria-label="Select page"
+              (page)="onChangePage($event)">
+</mat-paginator>
