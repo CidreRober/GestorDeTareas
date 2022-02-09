@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { TaskModel } from '../models/task.model';
-import { TaskService } from '../services/task.service';
+import { TaskService } from '../services/task-service.service';
 
 @Component({
   selector: 'app-task-list',
@@ -9,60 +10,60 @@ import { TaskService } from '../services/task.service';
 })
 export class TaskListComponent implements OnInit {
 
-  public allTaskList: any = [];
   public taskList: any = [];
-  public arrayTasks: any = [];
-  private finalTaskArray: any = [];
+  public totalElements: number = 0;
+  public title = 'Listado de tareas';
+  public nameLabel = 'Nombre tarea';
+  public isDoneLabel = 'Realizada';
+  public noTasks = 'No existe ninguna tarea.';
   
-  constructor(private taskService: TaskService) {
-    this.getAllTasks();
+  constructor(private taskService: TaskService, private toastrService: ToastrService) {
    }
 
   ngOnInit(): void {
+    this.requestTasksByPage(0);
   }
 
- public getAllTasks(): void {
-  this.taskService.getAllTasks().subscribe((tasks) => {
-    this.allTaskList = tasks;
-    this.taskList = tasks.slice(0 , 5);
-  });
- }
+  // Show sucessfull alert
+  private showSuccess() {
+    this.toastrService.success('Tarea modificada correctamente', 'Modificar tarea');
+  }
 
- public onAreaListControlChanged(task: any, list: any){
-   console.log(list._value); // lista de los activos
+  // Function that get tasks by page number
+  public requestTasksByPage(page: number): void {
+    this.taskList = [];
+    this.taskService.getTaskByPage(page).subscribe((tasks) => {
+      this.taskList = tasks.content;
+      this.totalElements = tasks.totalElements;
+    });
+  }
+
+  // Function that modifies the isDone state
+ public onTaskChanged(task: TaskModel){
     let taskSend: TaskModel = new TaskModel();
     taskSend.id = task.id;
     taskSend.name = task.name;
-    
-    for (let i = 0; i < list._value.length; i++) {
-      if (list._value[i] === task.name) {
-        taskSend.isDone = true;
-      } else {
-        taskSend.isDone = false;
-      }
+
+    if (task.isDone === true) {
+      taskSend.isDone = false;
+    } else {
+      taskSend.isDone = true;
     }
+
     this.saveTask(taskSend);
     }
 
+    // Function that updates a task
   public saveTask(task: TaskModel) {
   this.taskService.updateTask(task.id, task).subscribe((task)=>{
     console.log(task);
   });
+  this.showSuccess()
 }
 
+  // Function that call the requestTasksByPage when page changes
   public onChangePage(e: any): void {
-  if (e.pageIndex === 0) {
-    this.taskList = this.allTaskList.slice(0 , e.pageSize);
-    } else if (e.pageIndex === 1) {
-    this.taskList = this.allTaskList.slice(4 , 10);
-    } else if (e.pageIndex === 2) {
-      this.taskList = this.allTaskList.slice(9 , 14);
-    } else if (e.pageIndex === 3) {
-      this.taskList = this.allTaskList.slice(13 , 18);
-    } else if (e.pageIndex === 4) {
-      this.taskList = this.allTaskList.slice(18 , 23);
-    }
-  }
-
+    this.requestTasksByPage(e.pageIndex);
 }
 
+}

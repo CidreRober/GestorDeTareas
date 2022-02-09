@@ -1,16 +1,13 @@
-<div class="mt-120" style="display: flex;justify-content: center;">
-  <h2 class="center">Crear tarea</h2>
+<div class="mt-120">
+  <h2 class="containerCenter">{{createTaskLabel}}</h2>
   </div>
-
-  <div class="" style="display: flex;justify-content: center;">
-
+  <div class="containerCenter">
       <div class="inputName">
-          <input placeholder="Nombre de la tarea" [(ngModel)]="name">
+          <input class="input" placeholder="Nombre de la tarea" [(ngModel)]="name">
       </div>
       </div>
-
       <div class="saveButton">
-          <button mat-button color="warm" class="main-mat-button mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="createTask();">Guardar</button>
+          <button mat-button color="warm" class="button main-mat-button mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="createTask();">{{saveLabel}}</button>
       </div>
 
 

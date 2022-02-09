@@ -1,7 +1,8 @@
 .listTable {
     width: 70%;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 0px;
+    margin-left: 5px;
 }
 
 .saveButton {
@@ -10,4 +11,38 @@
     width: 70%;
     text-align: center;
     margin-top: 50px;
+}
+
+.paginator {
+    justify-content: center;
+    display: flex;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    padding-top: 120px;
+}
+
+.taskName {
+    width: 60%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.isDone {
+    width: 100%;
+    display: flex;
+    justify-content: center;margin-left: 20px;
+}
+
+.noTasks {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.flex {
+    display:flex;
 }

@@ -9,6 +9,8 @@ export class MenuComponent implements OnInit {
 
   constructor() { }
 
+  public itemMenuLabel: string = 'Crear una nueva tarea';
+  public itemMenuLabel2: string = 'Visualizar las tareas creadas';
   ngOnInit(): void {
   }
 

@@ -8,6 +8,7 @@ import { TaskModel } from '../models/task.model';
   providedIn: 'root'
 })
 export class TaskService {
+  [x: string]: any;
   apiUrl: string = 'http://localhost:8080';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient) { }
@@ -26,10 +27,15 @@ export class TaskService {
     return this.http.get(`${this.apiUrl}/gettasklist`);
   }
 
+    // Search all Tasks
+    getTaskByPage(page: number): Observable<any> {
+      return this.http.get(`${this.apiUrl}/gettaskbypage/?page=${page}`);
+    }
+
   // Update Task
   updateTask(id: number, data: any): Observable<any> {
     let API_URL = `${this.apiUrl}/updatetaskbyid/${id}`;
-    return this.http.put(API_URL, data, { headers: this.headers }).pipe(
+    return this.http.post(API_URL, data, { headers: this.headers }).pipe(
       catchError(this.error)
     )
   }
@@ -49,6 +55,6 @@ export class TaskService {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     console.log(errorMessage);
-    return throwError(errorMessage);
+    return errorMessage;
   }
 }

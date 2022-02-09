@@ -1,13 +1,29 @@
-<mat-selection-list class="listTable" #list>
-    <mat-list-option *ngFor="let task of taskList" [selected]="task.isDone" 
-        (click)="onAreaListControlChanged(task, list)" [value]="task.name">
-        {{task.name}}
-    </mat-list-option>
-</mat-selection-list>
+<h2 class="title">{{title}}</h2>
+<div class="flex">
+    <div class="taskName">
+    <b>
+        {{nameLabel}}
+    </b>
+    </div>
+    <div class="isDone">
+    <b>
+        {{isDoneLabel}}
+    </b>
+    </div>
+</div>
 
-<mat-paginator [length]="allTaskList.length"
-              [pageSize]="5"
-              [pageSizeOptions]="[5]"
-              aria-label="Select page"
-              (page)="onChangePage($event)">
+    <mat-selection-list class="listTable" #list>
+        <mat-list-option *ngFor="let task of taskList" [selected]="task.isDone" 
+            (click)="onTaskChanged(task)" [value]="task.name">
+            {{task.name}}
+        </mat-list-option>
+    </mat-selection-list>
+    <p class="noTasks" *ngIf="totalElements === 0">{{noTasks}}</p>
+
+
+<mat-paginator class="paginator" [length]="totalElements"
+    [pageSize]="5"
+    [pageSizeOptions]="[5]"
+    aria-label="Select page"
+    (page)="onChangePage($event)">    
 </mat-paginator>

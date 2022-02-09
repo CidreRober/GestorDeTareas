@@ -7,6 +7,8 @@ import { MenuModule } from './menu/menu.module';
 import { HeaderModule } from './header/header.module';
 import { NewTaskModule } from './new-task/new-task.module';
 import { TaskListModule } from './task-list/task-list.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { TaskListModule } from './task-list/task-list.module';
     MenuModule,
     HeaderModule,
     TaskListModule,
-    NewTaskModule
+    NewTaskModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
